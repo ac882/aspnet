@@ -1,0 +1,62 @@
+﻿@model HospitalLuz.Models.Cliente
+
+@{
+    ViewBag.Title = "DetailCliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DetailCliente</h2>
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datanasc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datanasc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fotopath)
+        </dt>
+
+        <dd>
+            @{
+                if (String.IsNullOrEmpty(Model.fotopath))
+                {
+                    <img width="80" src="@Url.Content("~/fotos/nofoto.png")" alt="erro" />
+                }
+                else
+                {
+                    <img width="80" src="@Url.Content(Model.fotopath)" alt="erro" />
+
+                }
+
+            }
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditCliente", new { id = Model.Idcli }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

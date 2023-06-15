@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StandTintIII_MBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="aluguere">
+    <Key>
+      <PropertyRef Name="idalu" />
+    </Key>
+    <Property Name="idalu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idcli" Type="Int32" />
+    <Property Name="idcar" Type="Int32" />
+    <Property Name="datainicial" Type="DateTime" Precision="3" />
+    <Property Name="datafinal" Type="DateTime" Precision="3" />
+    <Property Name="duracao" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="custo" Type="Decimal" Precision="10" Scale="3" />
+    <NavigationProperty Name="carro" Relationship="Self.FK__alugueres__idcar__2E1BDC42" FromRole="alugueres" ToRole="carros" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK__alugueres__idcli__2D27B809" FromRole="alugueres" ToRole="Clientes" />
+  </EntityType>
+  <EntityType Name="carro">
+    <Key>
+      <PropertyRef Name="idcar" />
+    </Key>
+    <Property Name="idcar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="marca" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="modelo" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="pu" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="alugueres" Relationship="Self.FK__alugueres__idcar__2E1BDC42" FromRole="carros" ToRole="alugueres" />
+    <NavigationProperty Name="marca1" Relationship="Self.fkmarcascarros" FromRole="carros" ToRole="marcas" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="Idcli" />
+    </Key>
+    <Property Name="Idcli" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="datanasc" Type="DateTime" Precision="0" />
+    <Property Name="idade" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="fotopath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="alugueres" Relationship="Self.FK__alugueres__idcli__2D27B809" FromRole="Clientes" ToRole="alugueres" />
+  </EntityType>
+  <EntityType Name="marca">
+    <Key>
+      <PropertyRef Name="marca1" />
+    </Key>
+    <Property Name="marca1" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="carros" Relationship="Self.fkmarcascarros" FromRole="marcas" ToRole="carros" />
+  </EntityType>
+  <Association Name="FK__alugueres__idcar__2E1BDC42">
+    <End Role="carros" Type="Self.carro" Multiplicity="0..1" />
+    <End Role="alugueres" Type="Self.aluguere" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="carros">
+        <PropertyRef Name="idcar" />
+      </Principal>
+      <Dependent Role="alugueres">
+        <PropertyRef Name="idcar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__alugueres__idcli__2D27B809">
+    <End Role="Clientes" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="alugueres" Type="Self.aluguere" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Idcli" />
+      </Principal>
+      <Dependent Role="alugueres">
+        <PropertyRef Name="idcli" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkmarcascarros">
+    <End Role="marcas" Type="Self.marca" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="carros" Type="Self.carro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="marcas">
+        <PropertyRef Name="marca1" />
+      </Principal>
+      <Dependent Role="carros">
+        <PropertyRef Name="marca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StandTintIII_MBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="alugueres" EntityType="Self.aluguere" />
+    <EntitySet Name="carros" EntityType="Self.carro" />
+    <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+    <EntitySet Name="marcas" EntityType="Self.marca" />
+    <AssociationSet Name="FK__alugueres__idcar__2E1BDC42" Association="Self.FK__alugueres__idcar__2E1BDC42">
+      <End Role="carros" EntitySet="carros" />
+      <End Role="alugueres" EntitySet="alugueres" />
+    </AssociationSet>
+    <AssociationSet Name="FK__alugueres__idcli__2D27B809" Association="Self.FK__alugueres__idcli__2D27B809">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="alugueres" EntitySet="alugueres" />
+    </AssociationSet>
+    <AssociationSet Name="fkmarcascarros" Association="Self.fkmarcascarros">
+      <End Role="marcas" EntitySet="marcas" />
+      <End Role="carros" EntitySet="carros" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

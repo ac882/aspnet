@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StandTintIII_MBModelStoreContainer" CdmEntityContainer="StandTintIII_MBEntities">
+    <EntitySetMapping Name="alugueres">
+      <EntityTypeMapping TypeName="StandTintIII_MBModel.aluguere">
+        <MappingFragment StoreEntitySet="alugueres">
+          <ScalarProperty Name="idalu" ColumnName="idalu" />
+          <ScalarProperty Name="idcli" ColumnName="idcli" />
+          <ScalarProperty Name="idcar" ColumnName="idcar" />
+          <ScalarProperty Name="datainicial" ColumnName="datainicial" />
+          <ScalarProperty Name="datafinal" ColumnName="datafinal" />
+          <ScalarProperty Name="duracao" ColumnName="duracao" />
+          <ScalarProperty Name="custo" ColumnName="custo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="carros">
+      <EntityTypeMapping TypeName="StandTintIII_MBModel.carro">
+        <MappingFragment StoreEntitySet="carros">
+          <ScalarProperty Name="idcar" ColumnName="idcar" />
+          <ScalarProperty Name="marca" ColumnName="marca" />
+          <ScalarProperty Name="modelo" ColumnName="modelo" />
+          <ScalarProperty Name="pu" ColumnName="pu" />
+          <ScalarProperty Name="foto" ColumnName="foto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="StandTintIII_MBModel.Cliente">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="Idcli" ColumnName="Idcli" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="datanasc" ColumnName="datanasc" />
+          <ScalarProperty Name="idade" ColumnName="idade" />
+          <ScalarProperty Name="fotopath" ColumnName="fotopath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="marcas">
+      <EntityTypeMapping TypeName="StandTintIII_MBModel.marca">
+        <MappingFragment StoreEntitySet="marcas">
+          <ScalarProperty Name="marca1" ColumnName="marca" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

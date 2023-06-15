@@ -1,0 +1,84 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<HospitalLuz.Models.Cliente>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm("Index","Novo",FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="search">Presquisa</label>
+        <input type="text" name="search" id="search"  class="form-control"/>
+        <br />
+        <input type="submit" class="btn btn-success" value="Pesquisar" />
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Criar Cliente", "AddCliente", "Novo")
+</p>
+<table class="table">
+    <tr>
+        <th>
+          @Html.ActionLink("ID","Index",new {ordem=ViewBag.idcli , page=ViewBag.pagina, search=ViewBag.filtro})
+        </th>
+        <th>
+            @Html.ActionLink("Nome", "Index", new { ordem = ViewBag.nome, page = ViewBag.pagina, search = ViewBag.filtro })
+        </th>
+        <th>
+           Data de Nascimento
+        </th>
+        <th>
+           Idade
+        </th>
+        <th>
+           foto
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Idcli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.datanasc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idade)
+        </td>
+        <td>
+            @{
+                if (String.IsNullOrEmpty(item.fotopath))
+                {
+                    <img width="80" src="@Url.Content("~/fotos/nofoto.png")" alt="erro" />
+                }
+                else
+                {
+                    <img width="80" src="@Url.Content(item.fotopath)" alt="erro" />
+
+                }
+
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditCliente", new { id=item.Idcli }) |
+            @Html.ActionLink("Details", "DetailCliente", new {  id=item.Idcli  }) |
+            @Html.ActionLink("Delete", "DeleteCliente", new {  id=item.Idcli })
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.PagedListPager(Model,(page)=>Url.Action("Index","Novo", new { page, ordem = ViewBag.ordem, search=ViewBag.filtro }))
+<br />
+@((Model.PageNumber > Model.PageCount)?1:Model.PageNumber) de  @Model.PageCount páginas

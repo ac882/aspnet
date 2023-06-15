@@ -1,0 +1,57 @@
+﻿@using HospitalLuz.Models
+@model IEnumerable<Aluno>
+
+@{
+    ViewBag.Title = "HomeClientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Secção do Cliente</h1>
+<p>
+    Esta secção irá gerir os clientes da empresa.
+
+</p>
+
+<h1>Foi desenvolvida no contexto:</h1>
+<h3>Escola:@ViewBag.escola</h3>
+<h4>Disciplina:@ViewData["disciplina"]</h4>
+<h4>Professor:@TempData["professor"]</h4>
+
+<table class="table table-bordered table-responsive table-striped bg-success">
+    <thead>
+        <tr>
+            <td colspan="2" style="background-color:orange;text-align:center ;font-size:2.3em">Lista de alunos</td>
+        </tr>
+        <tr>
+            <td style="width:33px;">Num</td>
+            <td>Nome</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Aluno a in Model)
+        {
+            <tr>
+                <td>@a.Num</td>
+                <td>@a.Nome</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@using (Html.BeginForm("HomeClientes","Clientes", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="favorito">Escolha o num favorito</label>
+        <input type="text" name="favorito" id="favorito" class="form-control" />
+        <br />
+        <input type="submit" value="Escolher" class="btn btn-primary" />
+        <p>O aluno escolhido foi @ViewBag.escolhido</p>
+    </div>
+}
+
+
+
+
+
+
+

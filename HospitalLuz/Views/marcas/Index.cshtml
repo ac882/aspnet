@@ -1,0 +1,33 @@
+﻿@model IEnumerable<HospitalLuz.Models.marca>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<h3 style="color:red;font-size:.8em;" >@ViewBag.msg</h3>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Marca</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+           @item.marca1
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.marca1.Trim() }) |
+            @Html.ActionLink("Details", "Details", new { id=item.marca1.Trim() }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.marca1.Trim() })
+        </td>
+    </tr>
+}
+
+</table>

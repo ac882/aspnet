@@ -1,0 +1,110 @@
+﻿@model IEnumerable<HospitalLuz.Models.carro>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<h3 id="msg" style="color:red;">@ViewBag.msg</h3>
+
+<p>
+    @Html.ActionLink("Create New", "CreateCarro")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Modelo
+        </th>
+        <th>
+            Preço
+        </th>
+        <th>
+            Foto
+        </th>
+        <th>
+            Marca
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idcar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pu)
+            </td>
+            <td>
+                @{
+                    if (item.foto != null)
+                    {
+                        <img src="data:image;base64,@System.Convert.ToBase64String(item.foto)" width="40" alt="" />
+
+
+                    }
+                    else
+                    {
+                        <img src='@Url.Content("~/fotos/nofoto.png")' width="40" alt="" />
+                    }
+
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.marca)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.idcar }) |
+                @Html.ActionLink("Details", "Details", new { id = item.idcar }) |
+                @Html.ActionLink("Delete", null, null, new { name = "lnkdel", id = item.idcar })
+            </td>
+        </tr>
+    }
+
+</table>
+@section deleteclient{
+ <script>
+     
+     $(function () {
+         
+         $("[name='lnkdel']").click(function (evt) {
+             evt ? evt : window.event;
+             evt.preventDefault();
+             //alert(evt.target.id);
+             if (!confirm("Quer apagar?")) return;
+             
+             $.ajax({
+                 url: '@Url.Action("DeleteCarro")',
+                 method: 'post',
+                 dataType:'json',
+                 data: { id: evt.target.id },
+                 success: function (data) {
+                     console.log(data.msg);
+                     console.log(data);
+                     if (data.msg == "deleted") {
+                         $(evt.target).closest("tr").remove();
+                 
+                     }
+                     $("#msg").html(data.msg);
+                 },
+                 error: function () {
+                     console.log("erro");
+                     alert("erro");
+                     $("#msg").html("Erro");
+                 }
+             });
+         });
+
+
+     });
+ </script>    
+    
+}
